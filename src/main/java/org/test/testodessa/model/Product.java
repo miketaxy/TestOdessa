@@ -1,5 +1,6 @@
 package org.test.testodessa.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,6 +14,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date entryDate;
     private String itemCode;
     private String itemName;

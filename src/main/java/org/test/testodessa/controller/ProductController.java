@@ -14,12 +14,12 @@ import org.test.testodessa.service.ProductService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
 
-    @RequestMapping(name = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity<String> addProducts(@RequestBody ProductRequest request) {
         String tableName = request.getTable();
         List<Product> records = request.getRecords();
@@ -29,7 +29,7 @@ public class ProductController {
         return new ResponseEntity<>("Table and records created successfully", HttpStatus.CREATED);
     }
 
-    @RequestMapping(name = "/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ResponseEntity<List<Product>> getAllProducts() {
         return ResponseEntity.ok(productService.getAllProducts());
     }

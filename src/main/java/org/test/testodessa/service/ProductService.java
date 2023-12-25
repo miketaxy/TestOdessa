@@ -15,21 +15,15 @@ public class ProductService {
     private EntityManager entityManager;
 
     public void createTableFromJson(String tableName, List<Product> records) {
-        // Dynamically create table using Hibernate
-        entityManager.createNativeQuery("CREATE TABLE " + tableName + " (id INT AUTO_INCREMENT PRIMARY KEY)").executeUpdate();
+        entityManager.createNativeQuery("DROP TABLE IF EXISTS   " + tableName).executeUpdate(); //IF I UNDERSTOOD TASK CORRECTLY
+        entityManager.createNativeQuery("CREATE TABLE " + tableName + " (id INT AUTO_INCREMENT PRIMARY KEY, " +
+                " entry_date VARCHAR(255)," +
+                " item_code VARCHAR(255)," +
+                " item_name VARCHAR(255)," +
+                " item_quantity VARCHAR(255)," +
+                " status VARCHAR(255))").executeUpdate();
 
-        // Create columns based on Product entity fields
         for (Product record : records) {
-            entityManager.createNativeQuery(
-                    "ALTER TABLE " + tableName +
-                            " ADD COLUMN entry_date VARCHAR(255), " +
-                            " ADD COLUMN item_code VARCHAR(255), " +
-                            " ADD COLUMN item_name VARCHAR(255), " +
-                            " ADD COLUMN item_quantity VARCHAR(255), " +
-                            " ADD COLUMN status VARCHAR(255)"
-            ).executeUpdate();
-
-            // Save records to the dynamically created table
             entityManager.persist(record);
         }
     }
